@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block body %}
+    <div class="container">
+        <div class="text-center">
+            <h1>Welcome to ABC School</h1>
+        </div>
+    </div>
+    <div>
+        <img src="{% static 'images/school.jpg' %}" alt="" width="1500px" height="350px">
+    </div>
+    <div class="container" >
+         <div class="vertical-center">
+            <a  href="{% url 'schoolapp:login' %}"class="btn btn-warning" href="">Login</a>
+         </div>
+
+    </div>
+{% endblock %}

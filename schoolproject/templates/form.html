@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block body %}
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var subjectObject = {
+  "Computer": {
+    "B-Tech": ["None"],
+    "MBBS": ["None"],
+    "Architecture": ["None"]
+  },
+  "Commerce": {
+    "BCom": ["None"],
+    "BBA": ["None"],
+    "CA" : ["None"]
+  },
+  "Humanities": {
+    "BA Psychilogy": ["None"],
+    "BA LLB": ["None"],
+    "Journalism" : ["None"]
+  },
+  "Computer Science": {
+    "BCA": ["None"],
+    "Software Engineer": ["None"],
+    "BSc in Computer Science" : ["None"]
+  },
+  "Political Science": {
+    "Civil Services": ["None"],
+    "Teaching": ["None"],
+    "Law" : ["None"]
+  }
+}
+window.onload = function() {
+  var subjectSel = document.getElementById("subject");
+  var topicSel = document.getElementById("topic");
+
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x,x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+   
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y,y);
+    }
+  }
+
+}
+</script>
+</head>
+<body>
+<div class="container">
+  <h1>Application Form</h1>
+  <form name="registration" class="registartion-form"  method="POST">
+    {% csrf_token %}
+
+
+    <table>
+      <tr>
+        <td><label for="name">Name:</label></td>
+        <td><input type="text" name="name" id="name" ></td>
+      </tr>
+      <tr>
+        <td><label for="dob">DOB:</label></td>
+        <td><input type="date" name="dob" id="dob"></td>
+      </tr>
+      <tr>
+        <td><label for="age">Age:</label></td>
+        <td><input type="number" name="number" id="number" ></td>
+      </tr>
+      <tr>
+        <td><label for="gender">Gender:</label></td>
+        <td>Male: <input type="radio" name="gender" value="male">
+          Female: <input type="radio" name="gender" value="female">
+        </td>
+      </tr>
+      <tr>
+        <td><label for="phoneNumber">Phone Number:</label></td>
+        <td><input type="number" name="phoneNumber" id="phoneNumber"></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email:</label></td>
+        <td><input type="text" name="email" id="email"></td>
+      </tr>
+
+      <tr>
+        <td><label for="address">Address:</label></td>
+        <td><textarea name="address" id="address" ></textarea></td>
+      </tr>
+
+      <tr>
+        <td>Department: </td>
+        <td><select name="subject" id="subject">
+              <option value="" selected="selected">Select Department</option>
+            </select>
+        </td>
+
+      <tr>
+        <td>Course: </td>
+        <td><select name="topic" id="topic">
+              <option value="" selected="selected">Please select department first</option>
+            </select>
+        </td>
+      </tr>
+
+
+      </tr>
+
+
+      <tr>
+        <td><label for="Purpose">Purpose</label></td>
+        <td>
+          <select id="purpose" name="purpose">
+            <option value="">Select</option>
+            <option value="">For Enquiry</option>
+            <option value="">Place Order</option>
+            <option value="">Return</option>
+          </select></td>
+      </tr>
+      <tr>
+        <td><label for="material">Materials Provide :</label></td>
+        <td>
+          <input type="checkbox" id="debit" name="materials[]" value="Debit Note Book">
+          <label for="debit">Debit Note Book</label>
+          <input type="checkbox" id="pen" name="materials[]" value="Pen">
+          <label for="debit">Pen</label>
+          <input type="checkbox" id="papper" name="materials[]" value="Exam pappers">
+          <label for="debit">Exam Pappers</label></td>
+      </tr>
+      <tr div class="button">
+        <td colspan="2">
+          <a href="{% url 'schoolapp:onclick' %}"
+                class="btn btn-success " style="color:white;">Submit</a>
+        </td>
+        <td>
+        <a href="{% url 'schoolapp:logout' %}"
+                class="btn btn-success " style="color:white;">Logout</a>
+        </td>
+      </tr>
+
+    </table>
+  </form>
+
+</div>
+
+</body>
+</html>
+
+{% endblock %}
